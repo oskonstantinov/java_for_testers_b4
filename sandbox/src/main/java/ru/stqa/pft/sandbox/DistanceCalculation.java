@@ -4,12 +4,12 @@ public class DistanceCalculation {
 
   public static void main(String[] args) {
 
-    Point p1 = new Point(2, 6);
+    Point p1 = new Point(2, 5);
     Point p2 = new Point(6, 11);
-    Point p3 = new Point (5, 4);
+    Point p3 = new Point (9, 22);
     System.out.println("The distance between points is equals to " + distance(p1, p2));
 
-    System.out.println("The distance between points, calculated by method 'distanceNew', is equals to " + p3.distanceNew(3, 7));
+    System.out.println("The distance between points, calculated by method 'distanceNew', is equals to " + p3.distanceNew(p2));
   }
 
   public static double distance(Point p1, Point p2) {
