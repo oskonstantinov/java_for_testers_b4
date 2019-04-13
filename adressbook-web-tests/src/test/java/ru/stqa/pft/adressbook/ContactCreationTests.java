@@ -5,10 +5,10 @@ import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class ContactCreationTest {
+public class ContactCreationTests {
   private WebDriver wd;
 
-  @BeforeClass(alwaysRun = true)
+  @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -27,7 +27,7 @@ public class ContactCreationTest {
   @Test
   public void testContactCreation() throws Exception {
     gotoContactCreation();
-    fillContactForm(new ContactData("Oleg", "Sergeevich", "Konstantinov", "Test sample adress", "+71111111111", "abc@def.g"));
+    fillContactForm(new ContactData("Oleg", "Sergeevich", "Konstantinov", "Test sample address", "+71111111111", "abc@def.g"));
     submitContactCreation();
     gotoHomePage();
   }
@@ -52,7 +52,7 @@ public class ContactCreationTest {
     wd.findElement(By.name("lastname")).sendKeys(contactData.getLastname());
     wd.findElement(By.name("address")).click();
     wd.findElement(By.name("address")).clear();
-    wd.findElement(By.name("address")).sendKeys(contactData.getAdress());
+    wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
     wd.findElement(By.name("home")).click();
     wd.findElement(By.name("home")).clear();
     wd.findElement(By.name("home")).sendKeys(contactData.getPhone());
@@ -65,7 +65,7 @@ public class ContactCreationTest {
     wd.findElement(By.linkText("add new")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
     logout();
     wd.quit();
