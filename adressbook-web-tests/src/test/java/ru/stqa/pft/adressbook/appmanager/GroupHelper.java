@@ -7,6 +7,7 @@ import ru.stqa.pft.adressbook.model.GroupData;
 public class GroupHelper extends HelperBase {
 
   public GroupHelper(WebDriver wd) {
+    // "super" represents the current instance of the parent class "HelperBase"
     super(wd);
   }
 

@@ -7,6 +7,7 @@ import ru.stqa.pft.adressbook.model.ContactData;
 public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
+    // "super" represents the current instance of the parent class  "HelperBase"
     super(wd);
   }
 

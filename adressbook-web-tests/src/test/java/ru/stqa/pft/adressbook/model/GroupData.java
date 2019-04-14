@@ -1,6 +1,7 @@
 package ru.stqa.pft.adressbook.model;
 
 public class GroupData {
+  // "final" value is assigned only once
   private final String name;
   private final String header;
   private final String footer;

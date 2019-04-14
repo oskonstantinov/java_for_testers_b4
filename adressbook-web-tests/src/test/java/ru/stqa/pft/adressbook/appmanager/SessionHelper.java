@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class SessionHelper extends HelperBase {
 
   public SessionHelper(WebDriver wd) {
+    // "super" represents the current instance of the parent class  "HelperBase"
     super(wd);
   }
 

@@ -5,9 +5,11 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
+  // "protected" method or variable is available for class, package and subclass
   protected WebDriver wd;
 
   public HelperBase(WebDriver wd) {
+    // "this" represents the current class instance
     this.wd = wd;
   }
 

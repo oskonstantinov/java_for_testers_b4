@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+  // "protected" method or variable is available for class, package and subclass
   protected WebDriver wd;
 
   private NavigationHelper navigationHelper;
@@ -16,11 +17,11 @@ public class ApplicationManager {
   public void init() {
     wd = new FirefoxDriver();
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
     contactHelper = new ContactHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
+    wd.get("http://localhost/addressbook/");
     sessionHelper.login("admin", "secret");
   }
 

@@ -1,6 +1,7 @@
 package ru.stqa.pft.adressbook.model;
 
 public class ContactData {
+  // "final" value is assigned only once
   private final String firstname;
   private final String middlename;
   private final String lastname;
