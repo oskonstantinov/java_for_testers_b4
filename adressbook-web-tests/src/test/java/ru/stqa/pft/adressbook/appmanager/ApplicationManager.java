@@ -1,11 +1,13 @@
 package ru.stqa.pft.adressbook.appmanager;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -30,6 +32,7 @@ public class ApplicationManager {
     } else if (browser.equals(BrowserType.IE)) {
       wd = new InternetExplorerDriver();
     }
+    wd.manage().window().setSize(new Dimension(1280, 1024));
     wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     groupHelper = new GroupHelper(wd);
     contactHelper = new ContactHelper(wd);

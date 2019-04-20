@@ -5,7 +5,7 @@ public class Equality {
     String s1 = "firefox";
     String s2 = new String(s1);
 
-    System.out.println(s1 == s2); // compare objects links
-    System.out.println(s1.equals(s2)); // compare objects content
+    System.out.println(s1 == s2); // compare objects links, "physical"
+    System.out.println(s1.equals(s2)); // compare objects content, "logical"
   }
 }
