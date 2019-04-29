@@ -23,6 +23,12 @@ public class GroupData {
     this.footer = footer;
   }
 
+  public GroupData(String name) {
+    this.name = name;
+    this.header = null;
+    this.footer = null;
+  }
+
   public int getId() {
     return id;
   }
