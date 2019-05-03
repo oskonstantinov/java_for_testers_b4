@@ -89,8 +89,7 @@ public class ContactHelper extends HelperBase {
     for (WebElement element : elements) {
       String lastname = element.getText().substring(0,12);
       String firstname = element.getText().substring(13,17);
-      ContactData contact = new ContactData( firstname,  lastname);
-      contacts.add(contact);
+      contacts.add(new ContactData().withFirstname(firstname).withLastname(lastname));
     }
     return contacts;
   }
