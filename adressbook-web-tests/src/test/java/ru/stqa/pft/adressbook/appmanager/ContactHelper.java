@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.ContactData;
 import ru.stqa.pft.adressbook.model.Contacts;
+
+import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -68,6 +70,7 @@ public class ContactHelper extends HelperBase {
 
   public void create(ContactData contact) {
     fillContactForm(contact, true);
+    attach(By.name("photo"), new File("src/test/resources/sheldon.jpg"));
     submitContactCreation();
     contactCache = null;
     returnToHomePage();
