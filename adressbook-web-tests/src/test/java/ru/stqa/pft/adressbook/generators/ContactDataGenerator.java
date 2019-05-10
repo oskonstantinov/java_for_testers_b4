@@ -6,7 +6,7 @@ import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
-import ru.stqa.pft.adressbook.model.GroupData;
+import ru.stqa.pft.adressbook.model.ContactData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,9 +15,9 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupDataGenerator {
+public class ContactDataGenerator {
 
-  @Parameter(names = "-c", description = "Group count")
+  @Parameter(names = "-c", description = "Contacts count")
   public  int count;
 
   @Parameter(names = "-f", description = "Target file")
@@ -27,7 +27,7 @@ public class GroupDataGenerator {
   public  String format;
 
   public static void main(String[] args) throws IOException {
-    GroupDataGenerator generator = new GroupDataGenerator();
+    ContactDataGenerator generator = new ContactDataGenerator();
     JCommander jCommander = new JCommander(generator);
     try {
       jCommander.parse(args);
@@ -39,48 +39,50 @@ public class GroupDataGenerator {
   }
 
   private void run() throws IOException {
-    List<GroupData> groups = generateGroups(count);
+    List<ContactData> contacts = generateContacts(count);
     if (format.equals("csv")) {
-      saveAsCsv(groups, new File(file));
+      saveAsCsv(contacts, new File(file));
     } else if (format.equals("xml")) {
-      saveAsXml(groups, new File(file));
+      saveAsXml(contacts, new File(file));
     } else if (format.equals("json")) {
-      saveAsJson(groups, new File(file));
+      saveAsJson(contacts, new File(file));
     } else {
       System.out.println("Unrecognized format " + format);
     }
   }
 
-  private List<GroupData> generateGroups(int count) {
-    List<GroupData> groups = new ArrayList<GroupData>();
+  private List<ContactData> generateContacts(int count) {
+    List<ContactData> contacts = new ArrayList<ContactData>();
     for(int i = 0; i < count; i++) {
-      groups.add(new GroupData().withName(String.format("test %s", i))
-                                .withHeader(String.format("header %s", i))
-                                .withFooter(String.format("footer %s", i)));
+      contacts.add(new ContactData().withFirstname(String.format("UserName%s", i))
+              .withLastname(String.format("UserLastname%s", i))
+              .withAddress(String.format("TestAddress, home№%s", i))
+              .withHomePhone(String.format("+7473211111%s", i))
+              .withEmail(String.format("ab@cd.f%s", i)));
     }
-    return groups;
+    return contacts;
   }
 
-  private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
+  private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     Writer writer = new FileWriter(file);
-    for (GroupData group : groups) {
-      writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+    for (ContactData contact : contacts) {
+      writer.write(String.format("%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(), contact.getAddress(), contact.getHomePhone(), contact.getEmail()));
     }
     writer.close();
   }
 
-  private void saveAsXml(List<GroupData> groups, File file) throws IOException {
+  private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
     XStream xStream = new XStream();
-    xStream.processAnnotations(GroupData.class);
-    String xml = xStream.toXML(groups);
+    xStream.processAnnotations(ContactData.class);
+    String xml = xStream.toXML(contacts);
     Writer writer = new FileWriter(file);
     writer.write(xml);
     writer.close();
   }
 
-  private void saveAsJson(List<GroupData> groups, File file) throws IOException {
+  private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
     Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-    String json = gson.toJson(groups);
+    String json = gson.toJson(contacts);
     Writer writer = new FileWriter(file);
     writer.write(json);
     writer.close();
