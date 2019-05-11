@@ -1,0 +1,10 @@
+16:11:45.236 [main] INFO  r.s.pft.adressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{, name='test 0'}]
+16:11:50.824 [main] INFO  r.s.pft.adressbook.tests.TestBase - Stop test testGroupCreation
+16:11:50.834 [main] INFO  r.s.pft.adressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{, name='test 1'}]
+16:11:53.712 [main] INFO  r.s.pft.adressbook.tests.TestBase - Stop test testGroupCreation
+16:11:53.712 [main] INFO  r.s.pft.adressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{, name='test 2'}]
+16:11:56.649 [main] INFO  r.s.pft.adressbook.tests.TestBase - Stop test testGroupCreation
+16:11:56.649 [main] INFO  r.s.pft.adressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{, name='test 3'}]
+16:11:59.777 [main] INFO  r.s.pft.adressbook.tests.TestBase - Stop test testGroupCreation
+16:11:59.777 [main] INFO  r.s.pft.adressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{, name='test 4'}]
+16:12:03.117 [main] INFO  r.s.pft.adressbook.tests.TestBase - Stop test testGroupCreation
