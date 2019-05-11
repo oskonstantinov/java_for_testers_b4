@@ -28,6 +28,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("address"), contactData.getAddress());
     type(By.name("home"), contactData.getHomePhone());
     type(By.name("email"), contactData.getEmail());
+    attach(By.name("photo"),"src/test/resources/sheldon.jpg");
 
     if(creation) {
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -70,7 +71,6 @@ public class ContactHelper extends HelperBase {
 
   public void create(ContactData contact) {
     fillContactForm(contact, true);
-    attach(By.name("photo"), new File("src/test/resources/sheldon.jpg"));
     submitContactCreation();
     contactCache = null;
     returnToHomePage();

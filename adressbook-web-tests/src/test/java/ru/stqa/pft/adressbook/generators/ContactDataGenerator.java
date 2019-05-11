@@ -59,6 +59,7 @@ public class ContactDataGenerator {
               .withAddress(String.format("TestAddress, home№%s", i))
               .withHomePhone(String.format("+7473211111%s", i))
               .withEmail(String.format("ab@cd.f%s", i))
+              .withPhoto("src/test/resources/sheldon.jpg")
               .withGroup("test1"));
     }
     return contacts;
