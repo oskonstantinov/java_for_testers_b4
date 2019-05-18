@@ -5,8 +5,7 @@
     "address": "TestAddress, home№0",
     "home": "+74732111110",
     "email": "ab@cd.f0",
-    "group": "test1",
-    "photo": "src/test/resources/sheldon.jpg"
+    "group": "test3"
   },
   {
     "firstname": "UserName1",
@@ -14,8 +13,7 @@
     "address": "TestAddress, home№1",
     "home": "+74732111111",
     "email": "ab@cd.f1",
-    "group": "test1",
-    "photo": "src/test/resources/sheldon.jpg"
+    "group": "test3"
   },
   {
     "firstname": "UserName2",
@@ -23,25 +21,6 @@
     "address": "TestAddress, home№2",
     "home": "+74732111112",
     "email": "ab@cd.f2",
-    "group": "test1",
-    "photo": "src/test/resources/sheldon.jpg"
-  },
-  {
-    "firstname": "UserName3",
-    "lastname": "UserLastname3",
-    "address": "TestAddress, home№3",
-    "home": "+74732111113",
-    "email": "ab@cd.f3",
-    "group": "test1",
-    "photo": "src/test/resources/sheldon.jpg"
-  },
-  {
-    "firstname": "UserName4",
-    "lastname": "UserLastname4",
-    "address": "TestAddress, home№4",
-    "home": "+74732111114",
-    "email": "ab@cd.f4",
-    "group": "test1",
-    "photo": "src/test/resources/sheldon.jpg"
+    "group": "test3"
   }
 ]
