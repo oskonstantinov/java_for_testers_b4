@@ -8,7 +8,6 @@ import org.testng.Assert;
 import ru.stqa.pft.adressbook.model.ContactData;
 import ru.stqa.pft.adressbook.model.Contacts;
 
-import java.io.File;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -60,6 +59,27 @@ public class ContactHelper extends HelperBase {
     alertAccept();
   }
 
+  public void goIntoSelectedGroup() {
+    WebElement group =  wd.findElement(By.name("group"));
+    Select select = new Select(group);
+    select.selectByVisibleText("test1");
+  }
+
+  public void initContactAdditionToGroup() {
+    WebElement group =  wd.findElement(By.name("to_group"));
+    Select select = new Select(group);
+    select.selectByVisibleText("test1");
+    click(By.name("add"));
+  }
+
+  public void initContactDeletionFromGroup() {
+    click(By.name("remove"));
+  }
+
+  public void goToGroupThroughAlert() {
+    wd.findElement(By.cssSelector("a[href^='./?group'")).click();
+  }
+
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
@@ -88,6 +108,18 @@ public class ContactHelper extends HelperBase {
     initContactDeletion();
     submitContactDeletion();
     contactCache = null;
+  }
+
+  public void addToGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    initContactAdditionToGroup();
+    goToGroupThroughAlert();
+  }
+
+  public void removeFromGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    initContactDeletionFromGroup();
+    goToGroupThroughAlert();
   }
 
   private Contacts contactCache = null;
