@@ -1,15 +1,12 @@
 package ru.stqa.pft.adressbook.tests;
 
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.adressbook.model.ContactData;
-import ru.stqa.pft.adressbook.model.Contacts;
 import ru.stqa.pft.adressbook.model.GroupData;
 import ru.stqa.pft.adressbook.model.Groups;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactToGroupTests extends TestBase {
@@ -34,22 +31,27 @@ public class ContactToGroupTests extends TestBase {
   }
 
   @Test
-  public void testAddContactToGroup() throws InterruptedException {
-    Contacts before = app.db().contacts();
-    ContactData selectedContact = before.iterator().next();
-    app.contact().addToGroup(selectedContact);
-    Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before.withAdded(selectedContact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
-                                  // withAdded(selectedContact.inGroup(after.stream().mapToLong((c) -> c.getId()).max().getAsLong()))));
+  public void testAddContactToGroup() {
+    ContactData selectedContact = app.db().contacts().iterator().next();
+    GroupData currentGroup = app.db().groups().iterator().next();
+    Groups groupsBefore = selectedContact.getGroups();
+    if (groupsBefore.size() < app.db().groups().size()) {
+      app.contact().addToGroup(selectedContact, currentGroup);
+    }
+    Groups groupsAfter = selectedContact.getGroups();
+    assertThat(groupsAfter, equalTo(groupsBefore.withAdded(currentGroup)));
   }
 
   @Test
   public void testDeleteContactFromGroup() {
-    app.contact().goIntoSelectedGroup();
-    Contacts before = app.db().contacts();
-    ContactData removedContact = before.iterator().next();
-    app.contact().removeFromGroup(removedContact);
-    Contacts after = app.db().contacts();
-    assertThat(after, equalTo(before.without(removedContact)));
+    GroupData currentGroup = app.db().groups().iterator().next();
+    app.contact().goIntoSelectedGroup(currentGroup);
+    ContactData removedContact = app.db().contacts().iterator().next();
+    Groups groupsBefore = removedContact.getGroups();
+    if (groupsBefore.size() > 0) {
+      app.contact().removeFromGroup(removedContact);
+    }
+    Groups groupsAfter = removedContact.getGroups();
+    assertThat(groupsAfter, equalTo(groupsBefore.without(currentGroup)));
   }
 }
