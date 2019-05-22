@@ -38,7 +38,8 @@ public class ContactToGroupTests extends TestBase {
     if (groupsBefore.size() < app.db().groups().size()) {
       app.contact().addToGroup(selectedContact, currentGroup);
     }
-    Groups groupsAfter = selectedContact.getGroups();
+    ContactData updatedContact = app.db().contacts().iterator().next().inGroup(currentGroup);
+    Groups groupsAfter = updatedContact.getGroups();
     assertThat(groupsAfter, equalTo(groupsBefore.withAdded(currentGroup)));
   }
 
@@ -47,11 +48,13 @@ public class ContactToGroupTests extends TestBase {
     GroupData currentGroup = app.db().groups().iterator().next();
     app.contact().goIntoSelectedGroup(currentGroup);
     ContactData removedContact = app.db().contacts().iterator().next();
+    Integer contactId = removedContact.getId();
     Groups groupsBefore = removedContact.getGroups();
     if (groupsBefore.size() > 0) {
       app.contact().removeFromGroup(removedContact);
     }
-    Groups groupsAfter = removedContact.getGroups();
+    ContactData updatedContact = app.db().contacts().iterator().next().withId(contactId);
+    Groups groupsAfter = updatedContact.getGroups();
     assertThat(groupsAfter, equalTo(groupsBefore.without(currentGroup)));
   }
 }
