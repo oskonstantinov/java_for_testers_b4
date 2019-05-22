@@ -34,11 +34,12 @@ public class ContactToGroupTests extends TestBase {
   public void testAddContactToGroup() {
     ContactData selectedContact = app.db().contacts().iterator().next();
     GroupData currentGroup = app.db().groups().iterator().next();
+    Integer contactId = selectedContact.getId();
     Groups groupsBefore = selectedContact.getGroups();
     if (groupsBefore.size() < app.db().groups().size()) {
       app.contact().addToGroup(selectedContact, currentGroup);
     }
-    ContactData updatedContact = app.db().contacts().iterator().next().inGroup(currentGroup);
+    ContactData updatedContact = app.db().contacts().iterator().next().inGroup(currentGroup).withId(contactId);
     Groups groupsAfter = updatedContact.getGroups();
     assertThat(groupsAfter, equalTo(groupsBefore.withAdded(currentGroup)));
   }
