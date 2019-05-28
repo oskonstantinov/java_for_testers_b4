@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UsersData;
 
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class ChangePasswordHelper extends HelperBase {
     return true;
   }
 
-  public void clickOnTestUserAndResetPsw() {
-    click(By.linkText("Oleg"));
+  public void clickOnTestUserAndResetPsw(UsersData user) {
+    click(By.linkText(String.format("%s", user.getUsername())));
     click(By.cssSelector("input[value='Reset Password']"));
   }
 

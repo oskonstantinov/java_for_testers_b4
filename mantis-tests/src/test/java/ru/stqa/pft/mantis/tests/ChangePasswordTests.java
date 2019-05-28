@@ -4,6 +4,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UsersData;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -16,25 +17,19 @@ public class ChangePasswordTests extends TestBase {
   @BeforeMethod
   public void startMailServerAndEnsureUser() throws IOException, MessagingException {
     app.mail().start();
-    app.chpass().loginAsAdminAndManage();
-    if(!app.chpass().testUserIsHere()) {
-      app.registration().logout();
-      app.registration().start("Oleg", "oleg@localhost.localdomain");
-      List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
-      String confirmationLink = app.registration().findConfirmationLink(mailMessages, "oleg@localhost.localdomain");
-      app.registration().finish(confirmationLink, "password");
-      app.registration().logout();
-      app.chpass().loginAsAdminAndManage();
-    }
   }
 
   @Test
   public void testChangePassword() throws MessagingException, IOException {
-    app.chpass().clickOnTestUserAndResetPsw();
+    app.chpass().loginAsAdminAndManage();
+    UsersData selectedUser = app.db().users().iterator().next();
+    String email = selectedUser.getEmail();
+    String username = selectedUser.getUsername();
+    app.chpass().clickOnTestUserAndResetPsw(selectedUser);
     List<MailMessage> newMessages = app.mail().waitForMail(1, 10000);
-    String resetLink = app.chpass().findResetPasswordLink(newMessages, "oleg@localhost.localdomain");
+    String resetLink = app.chpass().findResetPasswordLink(newMessages, email);
     app.chpass().changePassword(resetLink, "testpass");
-    assertTrue(app.newSession().login("Oleg", "testpass"));
+    assertTrue(app.newSession().login(username, "testpass"));
   }
 
   @AfterMethod(alwaysRun = true)
@@ -42,19 +37,3 @@ public class ChangePasswordTests extends TestBase {
     app.mail().stop();
   }
 }
-
-
-//Реализовать сценарий смены пароля пользователю баг-трекера MantisBT администратором системы:
-//
-//    Администратор входит в систему, переходит на страницу управления пользователями, выбирает заданного пользователя и нажимает кнопку Reset Password
-//    Отправляется письмо на адрес пользователя, тесты должны получить это письмо, извлечь из него ссылку для смены пароля, пройти по этой ссылке и изменить пароль.
-//    Затем тесты должны проверить, что пользователь может войти в систему с новым паролем.
-//
-//Изменить конфигурацию MantisBT можно вручную, не обязательно подменять конфигурационный файл при запуске тестов. Пользователя тоже можно заранее создать вручную.
-//
-//Однако получить информацию об идентификаторе и/или логине пользователя тесты должны самостоятельно во время выполнения.
-// Можно это сделать, например, загрузив информацию о пользователях из базы данных.
-//
-//Почтовый сервер можно запускать непосредственно внутри тестов.
-//
-//Шаги 1 и 2 необходимо выполнять через пользовательский интерфейс, а шаг 3 можно выполнить на уровне протокола HTTP.
