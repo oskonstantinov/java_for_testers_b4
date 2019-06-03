@@ -22,7 +22,7 @@ public class TestBase {
   public boolean isIssueOpen (int issueID)  {
     Issue myIssue = issueById(issueID);
     String status = myIssue.getState_name();
-    if (status == "Deleted" || status == "Closed") {
+    if (status.equals("Deleted") || status.equals("Closed")) {
       return false;
     } else {
       return true;
