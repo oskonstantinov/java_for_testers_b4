@@ -5,10 +5,8 @@ import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import ru.stqa.pft.adressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.adressbook.model.ContactData;
 import ru.stqa.pft.adressbook.model.Contacts;
@@ -23,6 +21,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
+@Listeners(MyTestListener.class)
 public class TestBase {
 
   Logger logger = LoggerFactory.getLogger(TestBase.class);
@@ -31,8 +30,9 @@ public class TestBase {
   protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   @BeforeSuite(alwaysRun = true)
-  public void setUp() throws IOException {
+  public void setUp(ITestContext context) throws IOException {
     app.init();
+    context.setAttribute("app", app);
   }
 
   @AfterSuite(alwaysRun = true)
